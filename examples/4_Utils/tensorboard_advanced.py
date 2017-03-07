@@ -130,6 +130,7 @@ with tf.Session() as sess:
         if (epoch+1) % display_step == 0:
             print("Epoch:", '%04d' % (epoch+1), "cost=", "{:.9f}".format(avg_cost))
 
+    summary_writer.close()
     print("Optimization Finished!")
 
     # Test model
