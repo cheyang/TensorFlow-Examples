@@ -1,0 +1,27 @@
+version: '2'
+services:
+   jupyter:
+    image: registry.cn-beijing.aliyuncs.com/tensorflow-samples/jupyter:1.0.1-devel
+    environment:
+      - PASSWORD=tensorflow
+    labels:
+      aliyun.routing.port_8888: jupyter-20170331233357
+    ports: 
+      - 8888
+    volumes:
+      - /output/training_logs
+   tensorboard:
+     image: registry.cn-beijing.aliyuncs.com/tensorflow-samples/tensorflow:1.0.1-devel
+     restart: always
+     labels:
+       aliyun.routing.port_6006: tensorboard-20170331233357
+     ports: 
+      - 6006
+     volumes_from:
+       - jupyter
+     command:
+       - tensorboard
+       - --logdir
+       - /output/training_logs
+       - --host
+       - 0.0.0.0
